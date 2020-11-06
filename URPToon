@@ -12,48 +12,48 @@ Shader "Toon/URP Toon"
 
 		_DiffuseRamp ("Diffuse Ramp Texture", 2D) = "gray" {}
 
-        [Header(Specular Lighting)]
-        [Space]
-        [Toggle(USE_SPECULAR)]
-        _UseSpecular ("Enable Specular", Float) = 0
+        	[Header(Specular Lighting)]
+        	[Space]
+        	[Toggle(USE_SPECULAR)]
+        	_UseSpecular ("Enable Specular", Float) = 0
 		_SpecularColor ("Specular Color", Color) = (0.5,0.5,0.5,1)
 		_SpecularToonSize ("Toon Size", Range(0,1)) = 0.25
 		_SpecularToonSmoothness ("Toon Smoothness", Range(0.001,0.5)) = 0.05
 
-        [Header(Emission)]
-        [Space]
+        	[Header(Emission)]
+        	[Space]
 		_EmissionColor("Emission Color", Color) = (0,0,0,0)		
 		_EmissionMap("Emission Map", 2D) = "white" {}
 		_EmissionPower("Emission Power", Float) = 1.0
 
-        [Header(Rim)]
-        [Space]
+        	[Header(Rim)]
+        	[Space]
 		_RimColor ("Rim Color", Color) = (1,1,1,1)
-        [Header(Lighting Rim Params)]
-        [Toggle(USE_LIGHTING_RIM)]
-        _UseRim ("Use Lighting Rim", Float) = 0
+        	[Header(Lighting Rim Params)]
+        	[Toggle(USE_LIGHTING_RIM)]
+        	_UseRim ("Use Lighting Rim", Float) = 0
 		_RimPower("Rim Power", Float) = 2.0
-        [Toggle(USE_RAMP_RIM)]
-        _UseRampRim ("Use Ramp Texture for Rim", Float) = 0
-        [Header(Outline Rim Params)]
-        [Toggle(USE_RIM_OUTLINE)]
-        _UseRimOutline ("Use Outline Rim", Float) = 0
+        	[Toggle(USE_RAMP_RIM)]
+        	_UseRampRim ("Use Ramp Texture for Rim", Float) = 0
+        	[Header(Outline Rim Params)]
+        	[Toggle(USE_RIM_OUTLINE)]
+        	_UseRimOutline ("Use Outline Rim", Float) = 0
 		_RimMin ("Rim Min", Range(0,2)) = 0.5
 		_RimMax ("Rim Max", Range(0,2)) = 1
 
-        [Header(Outline)]
-        [Space]
-        [Toggle(USE_OUTLINE)]
-        _UseOutline ("Use Outline", Float) = 0
-        _OutlineColor("Outline Color", Color) = (1,1,1,1)
-        _OutlineWidth("Outline width", Range(0.0, 16.0)) = 1.0
+		[Header(Outline)]
+		[Space]
+		[Toggle(USE_OUTLINE)]
+		_UseOutline ("Use Outline", Float) = 0
+		_OutlineColor("Outline Color", Color) = (1,1,1,1)
+		_OutlineWidth("Outline width", Range(0.0, 16.0)) = 1.0
 
-        [Header(Other Params)]
-        [Space]
-        [Toggle]
+		[Header(Other Params)]
+		[Space]
+		[Toggle]
 		_ZWrite ("Depth Write", Float) = 1.0
 
-        [Toggle(USE_FOG)]
+        	[Toggle(USE_FOG)]
 		_UseFog ("Fog", Float) = 1.0
 	}
 
@@ -97,12 +97,12 @@ Shader "Toon/URP Toon"
 
 			// -------------------------------------
 			// Material keywords
-            #pragma shader_feature USE_LIGHTING_RIM
-            #pragma shader_feature USE_RIM_OUTLINE
-            #pragma shader_feature USE_RAMP_RIM
-            #pragma shader_feature USE_FOG
-            #pragma shader_feature USE_SPECULAR
-            #pragma shader_feature USE_OUTLINE
+		        #pragma shader_feature USE_LIGHTING_RIM
+		        #pragma shader_feature USE_RIM_OUTLINE
+		        #pragma shader_feature USE_RAMP_RIM
+		        #pragma shader_feature USE_FOG
+		        #pragma shader_feature USE_SPECULAR
+		        #pragma shader_feature USE_OUTLINE
 
 			// -------------------------------------
 			#pragma multi_compile_fog
@@ -123,29 +123,29 @@ Shader "Toon/URP Toon"
 			half _BumpScale;
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
-            float4 _MainTex_TexelSize;
+            		float4 _MainTex_TexelSize;
 			half4 _BaseColor;
 
-            sampler2D _EmissionMap;
-            half4 _EmissionColor;
-            half _EmissionPower;
+			sampler2D _EmissionMap;
+			half4 _EmissionColor;
+			half _EmissionPower;
 
-            half _Contrast;
-            half _Saturation;
-            half _Brightness;
+			half _Contrast;
+			half _Saturation;
+			half _Brightness;
 
 			half _SpecularToonSize;
 			half _SpecularToonSmoothness;
 			half4 _SpecularColor;
 
-            half _RimPower;
-            half4 _RimColor;
+            		half _RimPower;
+            		half4 _RimColor;
 			half _RimMin;
 			half _RimMax;
-            half4 _OutlineColor;
-            half _OutlineWidth;
+            		half4 _OutlineColor;
+            		half _OutlineWidth;
 
-            sampler2D _DiffuseRamp;
+            		sampler2D _DiffuseRamp;
 
 			CBUFFER_END
 
@@ -160,21 +160,21 @@ Shader "Toon/URP Toon"
 			};
 
 			// vertex output / fragment input
-            struct Varyings
-            {
-                float2 uv                       : TEXCOORD0;
-                DECLARE_LIGHTMAP_OR_SH(lightmapUV, vertexSH, 1);
+		    struct Varyings
+		    {
+			float2 uv                       : TEXCOORD0;
+			DECLARE_LIGHTMAP_OR_SH(lightmapUV, vertexSH, 1);
 
-                float3 posWS                    : TEXCOORD2;    // xyz: posWS
-                float4 normal                   : TEXCOORD3;    // xyz: normal, w: viewDir.x
-                float4 tangent                  : TEXCOORD4;    // xyz: tangent, w: viewDir.y
-                float4 bitangent                : TEXCOORD5;    // xyz: bitangent, w: viewDir.z
+			float3 posWS                    : TEXCOORD2;    // xyz: posWS
+			float4 normal                   : TEXCOORD3;    // xyz: normal, w: viewDir.x
+			float4 tangent                  : TEXCOORD4;    // xyz: tangent, w: viewDir.y
+			float4 bitangent                : TEXCOORD5;    // xyz: bitangent, w: viewDir.z
 
-                half4 fogFactorAndVertexLight   : TEXCOORD6; // x: fogFactor, yzw: vertex light
+			half4 fogFactorAndVertexLight   : TEXCOORD6; // x: fogFactor, yzw: vertex light
 
-                float4 positionCS               : SV_POSITION;
-                UNITY_VERTEX_INPUT_INSTANCE_ID
-            };
+			float4 positionCS               : SV_POSITION;
+			UNITY_VERTEX_INPUT_INSTANCE_ID
+		    };
 
 
 
@@ -186,149 +186,149 @@ Shader "Toon/URP Toon"
 				UNITY_TRANSFER_INSTANCE_ID(input, output);
 
 				VertexPositionInputs vertexInput = GetVertexPositionInputs(input.vertex.xyz);
-                output.posWS.xyz = vertexInput.positionWS;
+                		output.posWS.xyz = vertexInput.positionWS;
 				// clip position
-                output.positionCS = vertexInput.positionCS;
+                		output.positionCS = vertexInput.positionCS;
 				// Texture Coordinates
-                output.uv = TRANSFORM_TEX(input.texcoord, _MainTex);
+                		output.uv = TRANSFORM_TEX(input.texcoord, _MainTex);
 
 				VertexNormalInputs vertexNormalInput = GetVertexNormalInputs(input.normal, input.tangent);
-			#ifdef _ADDITIONAL_LIGHTS_VERTEX
+				#ifdef _ADDITIONAL_LIGHTS_VERTEX
 				// Vertex lighting
-                half3 vertexLight = VertexLighting(vertexInput.positionWS, vertexNormalInput.normalWS);
-			#endif
+                		half3 vertexLight = VertexLighting(vertexInput.positionWS, vertexNormalInput.normalWS);
+				#endif
 
-                half fogFactor = ComputeFogFactor(vertexInput.positionCS.z);
-                half3 viewDirWS = GetCameraPositionWS() - vertexInput.positionWS;
-				// normal
-                output.normal = half4(vertexNormalInput.normalWS, viewDirWS.x);
-                output.tangent = half4(vertexNormalInput.tangentWS, viewDirWS.y);
-                output.bitangent = half4(vertexNormalInput.bitangentWS, viewDirWS.z);
-                OUTPUT_LIGHTMAP_UV(input.lightmapUV, unity_LightmapST, output.lightmapUV);
-                OUTPUT_SH(output.normal.xyz, output.vertexSH);
+				half fogFactor = ComputeFogFactor(vertexInput.positionCS.z);
+				half3 viewDirWS = GetCameraPositionWS() - vertexInput.positionWS;
+						// normal
+				output.normal = half4(vertexNormalInput.normalWS, viewDirWS.x);
+				output.tangent = half4(vertexNormalInput.tangentWS, viewDirWS.y);
+				output.bitangent = half4(vertexNormalInput.bitangentWS, viewDirWS.z);
+				OUTPUT_LIGHTMAP_UV(input.lightmapUV, unity_LightmapST, output.lightmapUV);
+				OUTPUT_SH(output.normal.xyz, output.vertexSH);
 
 				return output;
 			}
 
-            inline half3 LinearToGammaSpace (half3 linRGB)
-            {
-                linRGB = max(linRGB, half3(0.h, 0.h, 0.h));
-                // An almost-perfect approximation from http://chilliant.blogspot.com.au/2012/08/srgb-approximations-for-hlsl.html?m=1
-                return max(1.055h * pow(linRGB, 0.416666667h) - 0.055h, 0.h);
-            }
+		    inline half3 LinearToGammaSpace (half3 linRGB)
+		    {
+			linRGB = max(linRGB, half3(0.h, 0.h, 0.h));
+			// An almost-perfect approximation from http://chilliant.blogspot.com.au/2012/08/srgb-approximations-for-hlsl.html?m=1
+			return max(1.055h * pow(linRGB, 0.416666667h) - 0.055h, 0.h);
+		    }
 
-            inline half3 GammaToLinearSpace (half3 sRGB)
-            {
-                // Approximate version from http://chilliant.blogspot.com.au/2012/08/srgb-approximations-for-hlsl.html?m=1
-                return sRGB * (sRGB * (sRGB * 0.305306011h + 0.682171111h) + 0.012522878h);
-            }
+		    inline half3 GammaToLinearSpace (half3 sRGB)
+		    {
+			// Approximate version from http://chilliant.blogspot.com.au/2012/08/srgb-approximations-for-hlsl.html?m=1
+			return sRGB * (sRGB * (sRGB * 0.305306011h + 0.682171111h) + 0.012522878h);
+		    }
 
-            half3 AdjustContrast(half3 color)
-            {
-                #if !UNITY_COLORSPACE_GAMMA
-                    color = LinearToGammaSpace(color);
-                #endif
-                    color = saturate(lerp(half3(0.5, 0.5, 0.5), color, _Contrast));
-                    //color = pow(abs(color * 2 - 1), 1 / max(_Contrast, 0.0001)) * sign(color - 0.5) + 0.5;
-                #if !UNITY_COLORSPACE_GAMMA
-                    color = GammaToLinearSpace(color);
-                #endif
-                    return color;
-            }
+		    half3 AdjustContrast(half3 color)
+		    {
+			#if !UNITY_COLORSPACE_GAMMA
+			    color = LinearToGammaSpace(color);
+			#endif
+			    color = saturate(lerp(half3(0.5, 0.5, 0.5), color, _Contrast));
+			    //color = pow(abs(color * 2 - 1), 1 / max(_Contrast, 0.0001)) * sign(color - 0.5) + 0.5;
+			#if !UNITY_COLORSPACE_GAMMA
+			    color = GammaToLinearSpace(color);
+			#endif
+			    return color;
+		    }
 
-            half3 AddRim(half4 color, half3 normal)
-            {
-                    float3 viewDir = mul((float3x3)unity_CameraToWorld, float3(0,0,-1));
-	                float invDot =  1.0 - saturate(dot(normal, viewDir));
-	                float rimPower = pow(invDot, _RimPower);
-	                float rim = saturate(rimPower * _RimColor.a);
+		    half3 AddRim(half4 color, half3 normal)
+		    {
+			    float3 viewDir = mul((float3x3)unity_CameraToWorld, float3(0,0,-1));
+				float invDot =  1.0 - saturate(dot(normal, viewDir));
+				float rimPower = pow(invDot, _RimPower);
+				float rim = saturate(rimPower * _RimColor.a);
 
-                    #ifdef USE_RAMP_RIM
-	                    rim = tex2D(_DiffuseRamp, float2(rim, rim)).r;
-                    #endif
-	                return lerp(color.rgb, _RimColor.xyz * color.a, rim);
-            }
+			    #ifdef USE_RAMP_RIM
+				    rim = tex2D(_DiffuseRamp, float2(rim, rim)).r;
+			    #endif
+				return lerp(color.rgb, _RimColor.xyz * color.a, rim);
+		    }
 
-            half3 AddRimOutline(half4 color, half ndv)
-            {
-				half rim = 1 - ndv;
-				rim = smoothstep(_RimMin, _RimMax, rim);
-				return lerp(color.rgb, _RimColor.rgb, rim);
-            }
+		    half3 AddRimOutline(half4 color, half ndv)
+		    {
+					half rim = 1 - ndv;
+					rim = smoothstep(_RimMin, _RimMax, rim);
+					return lerp(color.rgb, _RimColor.rgb, rim);
+		    }
 
 
-            half4 AddOutline(half4 color, float2 uv)
-            {
-			    if (color.a != 0)
-                {
-	                half outline;
-					[unroll(16)]
-					for (int i = 1; i < _OutlineWidth + 1; i++)
-                    {
-				        half leftPixel = tex2D(_MainTex, uv + float2(i * -_MainTex_TexelSize.x, 0)).a;
-				        half upPixel = tex2D(_MainTex, uv + float2(0, i * _MainTex_TexelSize.y)).a;
-				        half rightPixel = tex2D(_MainTex, uv + float2(i * _MainTex_TexelSize.x, 0)).a;
-				        half bottomPixel = tex2D(_MainTex, uv + float2(0, i* -_MainTex_TexelSize.y)).a;
- 
-				        outline = (1 - leftPixel * upPixel * rightPixel * bottomPixel) * color.a;
-					}
-                    color = lerp(color, _OutlineColor, outline);
+		    half4 AddOutline(half4 color, float2 uv)
+		    {
+			if (color.a != 0)
+			{
+				half outline;
+				[unroll(16)]
+				for (int i = 1; i < _OutlineWidth + 1; i++)
+			    	{
+					half leftPixel = tex2D(_MainTex, uv + float2(i * -_MainTex_TexelSize.x, 0)).a;
+					half upPixel = tex2D(_MainTex, uv + float2(0, i * _MainTex_TexelSize.y)).a;
+					half rightPixel = tex2D(_MainTex, uv + float2(i * _MainTex_TexelSize.x, 0)).a;
+					half bottomPixel = tex2D(_MainTex, uv + float2(0, i* -_MainTex_TexelSize.y)).a;
+
+					outline = (1 - leftPixel * upPixel * rightPixel * bottomPixel) * color.a;
 				}
-				return color;
-            }
+			   	color = lerp(color, _OutlineColor, outline);
+			}
+			return color;
+		    }
 
-            float3 rgb2hsv(float3 c)
-            {
-              float4 K = float4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
-              float4 p = lerp(float4(c.bg, K.wz), float4(c.gb, K.xy), step(c.b, c.g));
-              float4 q = lerp(float4(p.xyw, c.r), float4(c.r, p.yzx), step(p.x, c.r));
+		    float3 rgb2hsv(float3 c)
+		    {
+		      float4 K = float4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+		      float4 p = lerp(float4(c.bg, K.wz), float4(c.gb, K.xy), step(c.b, c.g));
+		      float4 q = lerp(float4(p.xyw, c.r), float4(c.r, p.yzx), step(p.x, c.r));
 
-              float d = q.x - min(q.w, q.y);
-              float e = 1.0e-10;
-              return float3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
-            }
+		      float d = q.x - min(q.w, q.y);
+		      float e = 1.0e-10;
+		      return float3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
+		    }
 
-            float3 hsv2rgb(float3 c) 
-            {
-              c = float3(c.x, clamp(c.yz, 0.0, 1.0));
-              float4 K = float4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
-              float3 p = abs(frac(c.xxx + K.xyz) * 6.0 - K.www);
-              return c.z * lerp(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
-            }
+		    float3 hsv2rgb(float3 c) 
+		    {
+		      c = float3(c.x, clamp(c.yz, 0.0, 1.0));
+		      float4 K = float4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+		      float3 p = abs(frac(c.xxx + K.xyz) * 6.0 - K.www);
+		      return c.z * lerp(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+		    }
 
-            inline half4 AdjustColor(half4 color)
-            {
-	            float3 hsv = rgb2hsv(color.rgb);
-	            hsv.y *= _Saturation; 
-	            hsv.z *= _Brightness;
-	
-	            color.rgb = hsv2rgb(hsv);
-	
-	            return color;
-            }
+		    inline half4 AdjustColor(half4 color)
+		    {
+			    float3 hsv = rgb2hsv(color.rgb);
+			    hsv.y *= _Saturation; 
+			    hsv.z *= _Brightness;
 
-            half3 CalculateDiffuse(Light myLight, half3 normalWS)
-            {
-                float towardsLight = dot(normalWS, myLight.direction.xyz);
-				towardsLight = towardsLight * 0.5 + 0.5;
-				float3 lightIntensity = tex2D(_DiffuseRamp, towardsLight).rgb;
-                half3 attenuatedLightColor = myLight.color * myLight.distanceAttenuation * myLight.shadowAttenuation;
-				half3 diffuse = lightIntensity  * attenuatedLightColor;
-                return diffuse;
-            }
+			    color.rgb = hsv2rgb(hsv);
 
-            half3 CalculateSpecular(Light myLight, half3 normalWS, half3 viewDirWS)
-            {
-				//Blinn-Phong Specular
-				half3 h = SafeNormalize(myLight.direction + viewDirWS);
-				float ndh = saturate(dot(normalWS, h));
-				half ndl = saturate(dot(normalWS, myLight.direction));
+			    return color;
+		    }
 
-				float spec = smoothstep(_SpecularToonSize + _SpecularToonSmoothness, _SpecularToonSize - _SpecularToonSmoothness,1 - (ndh / (1+_SpecularToonSmoothness)));
-				spec *= ndl;
-				spec *= myLight.shadowAttenuation * myLight.distanceAttenuation;
-				return spec * myLight.color  * _SpecularColor;
-            }
+		    half3 CalculateDiffuse(Light myLight, half3 normalWS)
+		    {
+			float towardsLight = dot(normalWS, myLight.direction.xyz);
+					towardsLight = towardsLight * 0.5 + 0.5;
+					float3 lightIntensity = tex2D(_DiffuseRamp, towardsLight).rgb;
+			half3 attenuatedLightColor = myLight.color * myLight.distanceAttenuation * myLight.shadowAttenuation;
+					half3 diffuse = lightIntensity  * attenuatedLightColor;
+			return diffuse;
+		    }
+
+		    half3 CalculateSpecular(Light myLight, half3 normalWS, half3 viewDirWS)
+		    {
+			//Blinn-Phong Specular
+			half3 h = SafeNormalize(myLight.direction + viewDirWS);
+			float ndh = saturate(dot(normalWS, h));
+			half ndl = saturate(dot(normalWS, myLight.direction));
+
+			float spec = smoothstep(_SpecularToonSize + _SpecularToonSmoothness, _SpecularToonSize - _SpecularToonSmoothness,1 - (ndh / (1+_SpecularToonSmoothness)));
+			spec *= ndl;
+			spec *= myLight.shadowAttenuation * myLight.distanceAttenuation;
+			return spec * myLight.color  * _SpecularColor;
+		    }
 
 
 			half4 Fragment(Varyings input) : SV_Target
@@ -336,87 +336,86 @@ Shader "Toon/URP Toon"
 				UNITY_SETUP_INSTANCE_ID(input);
 
 				// Normal Mapping
-                half4 normalMap = tex2D(_BumpMap, input.uv);
+                		half4 normalMap = tex2D(_BumpMap, input.uv);
 				half3 normalTS = UnpackNormalScale(normalMap, _BumpScale);
-                half3 normalWS = TransformTangentToWorld(normalTS, half3x3(input.tangent.xyz, input.bitangent.xyz, input.normal.xyz));;
-                normalWS = NormalizeNormalPerPixel(normalWS);
+				half3 normalWS = TransformTangentToWorld(normalTS, half3x3(input.tangent.xyz, input.bitangent.xyz, input.normal.xyz));;
+				normalWS = NormalizeNormalPerPixel(normalWS);
 
 				half3 viewDirWS = SafeNormalize(half3(input.normal.w, input.tangent.w, input.bitangent.w));
 				half ndv = max(0, dot(viewDirWS, normalWS));
 
-                //ALBEDO
+                		//ALBEDO
 
 				half4 albedo = tex2D(_MainTex, input.uv);
-                albedo = AdjustColor(albedo);
-                albedo *= _BaseColor;
+                		albedo = AdjustColor(albedo);
+                		albedo *= _BaseColor;
 
-                //RIM
-                #ifdef USE_LIGHTING_RIM 
-                    albedo.rgb = AddRim(albedo, normalWS);
-                #endif
+				//RIM
+				#ifdef USE_LIGHTING_RIM 
+				    albedo.rgb = AddRim(albedo, normalWS);
+				#endif
 
-                #ifdef USE_RIM_OUTLINE
-                    albedo.rgb = AddRimOutline(albedo, ndv);
-                #endif
+				#ifdef USE_RIM_OUTLINE
+				    albedo.rgb = AddRimOutline(albedo, ndv);
+				#endif
 
-                //LIGHTING
+                		//LIGHTING
 
 				Light mainLight = GetMainLight();
 
-                //GI
+				//GI
 
-                #if defined(_SPHERICAL_HARMONICS)
-	                half3 ambient = ShadeSH9(half4(normalWS, 1.0));
-                #else 
-				    half3 ambient = SampleSH(normalWS);
-                #endif
-
-                //OUTPUT
-                half4 color = albedo;
-
-                //DIFFUSE
-                
-                color.rgb *= (ambient + CalculateDiffuse(mainLight, normalWS));
-
-                //VERTEX LIGHTS
-
-			    #ifdef _ADDITIONAL_LIGHTS_VERTEX
-				    color.rgb += input.fogFactorAndVertexLight.yzw * albedo;
-			    #endif
-
-                //EMISSION
-                color.rgb += (tex2D(_EmissionMap, input.uv).rgb * _EmissionColor.rgb * _EmissionPower) * color.a;
-
-                //SPECULAR
-				#if USE_SPECULAR
-
-                color.rgb += CalculateSpecular(mainLight, normalWS, viewDirWS);
+				#if defined(_SPHERICAL_HARMONICS)
+					half3 ambient = ShadeSH9(half4(normalWS, 1.0));
+				#else 
+						    half3 ambient = SampleSH(normalWS);
 				#endif
 
-                #ifdef _ADDITIONAL_LIGHTS
-                    uint pixelLightCount = GetAdditionalLightsCount();
-                    for (uint lightIndex = 0u; lightIndex < pixelLightCount; ++lightIndex)
-                    {
-                        Light light = GetAdditionalLight(lightIndex, input.posWS);
-				        color.rgb += albedo * CalculateDiffuse(light, normalWS);
+				//OUTPUT
+				half4 color = albedo;
+
+				//DIFFUSE
+
+				color.rgb *= (ambient + CalculateDiffuse(mainLight, normalWS));
+
+				//VERTEX LIGHTS
+
+				    #ifdef _ADDITIONAL_LIGHTS_VERTEX
+					    color.rgb += input.fogFactorAndVertexLight.yzw * albedo;
+				    #endif
+
+				//EMISSION
+				color.rgb += (tex2D(_EmissionMap, input.uv).rgb * _EmissionColor.rgb * _EmissionPower) * color.a;
+
+                		//SPECULAR
+				#if USE_SPECULAR
+                			color.rgb += CalculateSpecular(mainLight, normalWS, viewDirWS);
+				#endif
+
+				#ifdef _ADDITIONAL_LIGHTS
+				    uint pixelLightCount = GetAdditionalLightsCount();
+				    for (uint lightIndex = 0u; lightIndex < pixelLightCount; ++lightIndex)
+				    {
+					Light light = GetAdditionalLight(lightIndex, input.posWS);
+					color.rgb += albedo * CalculateDiffuse(light, normalWS);
 
 					#if defined(USE_SPECULAR)
 					    color.rgb += CalculateSpecular(light, normalWS, viewDirWS);
 					#endif
-                    }
-                #endif
+                    		    }
+                		#endif
 
-                color.rgb = AdjustContrast(color.rgb);
+				color.rgb = AdjustContrast(color.rgb);
 
-                //OUTLINE
-                #ifdef USE_OUTLINE
-                    color = AddOutline(color, input.uv);
-                #endif
+				//OUTLINE
+				#ifdef USE_OUTLINE
+				    color = AddOutline(color, input.uv);
+				#endif
 
-                //FOG
-                 #ifdef USE_FOG
+				//FOG
+				#ifdef USE_FOG
 				    color.rgb = MixFog(color.rgb, input.fogFactorAndVertexLight.x);
-                #endif
+				#endif
 				return color;
 			}
 			ENDHLSL
@@ -424,4 +423,3 @@ Shader "Toon/URP Toon"
 	}
 	FallBack "Hidden/InternalErrorShader"
 }
-
